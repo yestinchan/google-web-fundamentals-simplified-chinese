@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/user-input/touch-input/activestates/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:46 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Stateful Elements Respond to Touch — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><link rel="publisher" href="https://plus.google.com/+MattGaunt"><meta itemprop="name" content="Stateful Elements Respond to Touch — Google Web Fundamentals"><meta itemprop="image" content="../../../../../../imgs/lono.html"><meta itemprop="description" content="The simplest way to reassure a user that their touch isn't ignored is to change your UI as they press down. Changing a background color can make all the difference and is simple to do."><link rel="stylesheet" media="screen" href="../../../../css/styles.min.css"><body class="page--article article--touch-input theme--touch-input"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/user-input/touch-input/activestates/index.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../../multi-device-layouts/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../../../performance/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../../index-2.html" title="Documentation">Documentation</a> / <a href="../../index-2.html" title="Forms and User Input">Forms and User Input</a> / <a href="../index.html" title="Add Touch to Your Site">Add Touch to Your Site</a> /</p></nav><h1 class="tag editorial-header__title">Add Touch to Your Site</h1><h2 class="editorial-header__subtitle">Stateful Elements Respond to Touch</h2><p class="editorial-header__excerpt">Touchscreens are available on more and more devices, ranging from phones up to desktop screens. When your users choose to interact with your UI, your app should respond to their touch in intuitive and beautiful ways.</p></div></div></div><div class="container"><div class="content"><h2 id="add-touch-states">Add Touch States</h2><p>Have you ever touched or clicked an element on a web page and questioned whether the site actually detected it?</p><p>Simply altering the color of elements as users touch parts of your UI gives a basic reassurance that your site is working. Not only does this alleviate frustation, but can also give a snappy and responsive feel to your site.</p><h3 id="use-pseudo-classes-to-change-ui-for-each-touch-state">Use Pseudo Classes to Change UI for each Touch State</h3><p>The fastest way to support touch is to change the UI in response to a DOM element’s change in state.</p></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>Make your site feel snappy and responsive&colon; change the UI for each state :hover, :active and :focus.</li><li>Don’t override a browser’s default responses to touch and focus unless you are implementing your own UI changes.</li><li>Disable text selection on elements user’s will touch, unless there’s a good reason why users might need to copy / select the text.</li></ul></div></div></div><div class="container"><div class="content"><p>DOM elements can be in one of the following states, default, focus, hover, and active. To change our UI for each of these states, we need to apply styles to the following pseudo classes <code>:hover</code>, <code>:focus</code> and <code>:active</code> as shown below:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nc">.btn</span> <span class="p">{</span>
+      <span class="k">background-color</span><span class="o">:</span> <span class="m">#4285f4</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.btn</span><span class="nd">:hover</span> <span class="p">{</span>
+      <span class="k">background-color</span><span class="o">:</span> <span class="m">#296CDB</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.btn</span><span class="nd">:focus</span> <span class="p">{</span>
+      <span class="k">background-color</span><span class="o">:</span> <span class="m">#0F52C1</span><span class="p">;</span>
+    
+      <span class="c">/* The outline parameter surpresses the border</span>
+<span class="c">      color / outline when focused */</span>
+      <span class="k">outline</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.btn</span><span class="nd">:active</span> <span class="p">{</span>
+      <span class="k">background-color</span><span class="o">:</span> <span class="m">#0039A8</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/user-input/touch-input/states-example">View full sample</a></div></div><div class="container"><div class="content"><p>See <a href="#pseudo-classes-for-touch-states">Pseudo classes for touch states</a>:</p><p><img src="images/button-states.png" alt="Image illustrating the different colors for button states"></p><h3 id="override-default-browser-styles-for-touch-states">Override Default Browser Styles for Touch States</h3><p>Different browsers have implemented their own styles in response to user’s touch. When you implement your own styles, you may want to override these browser styles as well.</p></div></div><div class="highlight-module highlight-module--right highlight-module--remember"><div class="highlight-module__container icon-exclamation"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--pull-1"><p class="highlight-module__title">Remember</p><ul class="highlight-module__list"><li>Only override browser styles if you are implementing your own!</li></ul></div></div></div><div class="container"><div class="content"><h4 id="override-tap-highlight-styles">Override Tap Highlight Styles</h4><p>When mobile devices first launched, a number of sites didn’t have styling for the active state. As a result, many browsers add a highlight color or style to elements when a user touches them.</p><p>Safari and Chrome add a tap highlight color which can be prevented with the <code>-webkit-tap-highlight-color</code> CSS property:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="c">/* Webkit / Chrome Specific CSS to remove tap</span>
+<span class="c">    highlight color */</span>
+    <span class="nc">.btn</span> <span class="p">{</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">tap</span><span class="o">-</span><span class="n">highlight</span><span class="o">-</span><span class="k">color</span><span class="o">:</span> <span class="k">transparent</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/user-input/touch-input/states-example">View full sample</a></div></div><div class="container"><div class="content"><p>Internet Explorer on Windows Phone has a similar behavior, but is suppressed via a meta tag:</p><div class="highlight"><pre><code class="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;msapplication-tap-highlight&quot;</span> <span class="na">content=</span><span class="s">&quot;no&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div><h4 id="override-firefoxos-button-state-styles">Override FirefoxOS Button State Styles</h4><p>The Firefox <code>-moz-focus-inner</code> pseudo class includes an outline on touchable elements. You can remove this outline by setting the <code>border: 0</code>.</p><p>If you are using a <code>&lt;button&gt;</code> element, you get a gradient applied to your button which you can remove by setting <code>background-image: none</code>.</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="c">/* Firefox Specific CSS to remove button</span>
+<span class="c">    differences and focus ring */</span>
+    <span class="nc">.btn</span> <span class="p">{</span>
+      <span class="k">background-image</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.btn</span><span class="o">:</span><span class="nd">:-moz-focus-inner</span> <span class="p">{</span>
+      <span class="k">border</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/user-input/touch-input/states-example">View full sample</a></div></div><div class="container"><div class="content"><h4 id="override-element-outline-in-focus-state">Override Element Outline in Focus State</h4><p>Suppress the outline color when an element is focused using <code>outline: 0</code>.</p><div class="highlight"><pre><code class="css"><span class="nc">.btn</span><span class="nd">:focus</span> <span class="p">{</span>
+  <span class="k">outline</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+
+  <span class="o">//</span> <span class="n">Add</span> <span class="n">replacement</span> <span class="n">focus</span> <span class="n">styling</span> <span class="n">here</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="disable-user-select-on-ui-which-responds-to-touch">Disable user-select on UI which Responds to Touch</h3><p>Some mobile browsers will select text if the user long presses on the screen. This can result in a bad user experience if the user accidentally presses down on a button for too long. You can prevent this from happening using the <code>user-select</code> CSS property.</p><div class="highlight"><pre><code class="css"><span class="nt">-moz-user-select</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span>
+<span class="nt">-webkit-user-select</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span>
+<span class="nt">-ms-user-select</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span>
+<span class="nt">user-select</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span>
+</code></pre></div></div></div><div class="highlight-module highlight-module--right highlight-module--remember"><div class="highlight-module__container icon-exclamation"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--pull-1"><p class="highlight-module__title">Remember</p><ul class="highlight-module__list"><li>You should be cautious not to disable user selection if the information on the element may be useful to the user (phone number, e-mail address, and so on).</li></ul></div></div></div><div class="container"><div class="content"><h2 id="reference">Reference</h2><h3 id="pseudo-classes-for-touch-states">Pseudo Classes for Touch States</h3><table class="table-3"><thead><tr><th>Class<th>Example<th>Description<tbody><tr><td data-th="Class"><code>:focus</code><td data-th="Example"><img alt="Button with Focus State" src="images/btn-focus-state.png"><td data-th="Description">When you tab through elements on a page, you are moving the focus from one element to the next. The focus state allows the user to know what element they are currently interacting with; also allows users to navigate your UI easily using a keyboard.<tr><td data-th="Class"><code>:active</code><td data-th="Example"><img alt="Button in Pressed State" src="images/btn-pressed-state.png"><td data-th="Description">This is the state an element has when it's being selected, for example a user clicking or touching an element.<tr><td data-th="Class"><code>:hover</code><td data-th="Example"><img alt="Button in Pressed State" src="images/btn-hover-state.png"><td data-th="Description">This state is entered when a is cursor placed over an element. Changes in UI on hover are helpful to encourage users to interact with elements.</table></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="01"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li class="current" title="Stateful Elements Respond to Touch"><a href="index.html">Stateful Elements Respond to Touch <i class="icon icon-tick"></i></a></li><li title="Implement Custom Gestures"><a href="../touchevents/index.html">Implement Custom Gestures</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/user-input/touch-input/activestates/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:50 GMT -->
+</html>

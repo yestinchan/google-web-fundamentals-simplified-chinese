@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/resources/styleguide/markdown-guide by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:12 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Markdown Guide — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><meta itemprop="name" content="Markdown Guide — Google Web Fundamentals"><meta itemprop="image" content="../../../../imgs/lono.html"><meta itemprop="description" content="Markdown guide and syntax used for this site."><link rel="stylesheet" media="screen" href="../../css/styles.min.css"><body class="page--styleguide"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/resources/styleguide/markdown-guide.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../documentation/index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../documentation/index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../documentation/multi-device-layouts/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../documentation/user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../documentation/introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../../documentation/performance/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="container"><div class="content"><div class="toc"><h3 class="toc__title">In this lesson</h3><ol class="toc__list list-anchor" id="toc"><li><a href="#headings">Headings</a></li><li><a href="#h2-heading">##h2 heading</a></li><li><a href="#code">Code</a></li><li><a href="#callouts">Callouts</a></li></ol></div><h2 id="headings">Headings</h2><p>Styles for Headings</p><h1 id="h1-heading">#h1 heading</h1><h2 id="h2-heading">##h2 heading</h2><h3 id="h3-heading">###h3 heading</h3><h4 id="h4-heading">####h4 heading</h4><h5 id="h5-heading">#####h5 heading</h5><h2 id="code">Code</h2><p>Styles for how to include code into the documents.</p><h3 id="inline-code-with-no-sample">Inline code with no sample</h3><p>&#123;% highlight html %&#125;</p><pre><code>&lt;html&gt;
+    &lt;head&gt;
+      &lt;title&gt;Hello World&lt;/title&gt;
+    &lt;/head&gt;
+&lt;/html&gt;
+</code></pre><p>&#123;% endhighlight %&#125;</p><div class="highlight"><pre><code class="html"><span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hello World<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div><h3 id="include-javascript">Include Javascript</h3><p>&#123;% include_code _code/test.js testjs javascript %&#125;</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">);</span>
+</pre></div></code> <a class="highlight-module__cta" href="../samples/resources/styleguide/test.js">View full sample</a></div></div><div class="container"><div class="content"><h3 id="include-html">Include HTML</h3><p>&#123;% include_code _code/test.html testhtml html %&#125;</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="cp">&lt;!DOCTYPE html&gt;</span>
+    <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+            <span class="nt">&lt;title&gt;</span>Article Example: sample example<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">role=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+          Hello, world.
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/resources/styleguide/test">View full sample</a></div></div><div class="container"><div class="content"><h3 id="include-css">Include CSS</h3><p>&#123;% include_code _code/test.css testcss css %&#125;</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">html</span><span class="o">,</span> <span class="nt">body</span> <span class="p">{</span>
+    	<span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div></code> <a class="highlight-module__cta" href="../samples/resources/styleguide/test.css">View full sample</a></div></div><div class="container"><div class="content"><h3 id="link-to-sample">Link to sample</h3><p>&#123;% link_sample _code/test.html %&#125;See sample&#123;% endlink_sample %&#125;</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/resources/styleguide/test">See sample</a></p><h2 id="callouts">Callouts</h2><p>Using Callouts in your doc is easy.</p><h3 id="key-takeaway">Key takeaway</h3><pre><code>{% include modules/takeaway.liquid
+	list=page.key-takeaways.use-keytakeaway %}
+</code></pre><p>In your Article YAML Preamble</p><pre><code>key-takeaways:
+  use-keytakeaway:
+    - It is pretty simple to add in a key takeaway
+</code></pre></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>It is pretty simple to add in a key takeaway</li></ul></div></div></div><div class="container"><div class="content"><h3 id="remember">Remember</h3><pre><code>{% include modules/remember.liquid
+	list=page.remember.use-remember %}
+</code></pre><p>In your Article YAML Preamble</p><pre><code>remember:
+  use-remember:
+    - It is pretty simple to add in a remember
+</code></pre></div></div><div class="highlight-module highlight-module--right highlight-module--remember"><div class="highlight-module__container icon-exclamation"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--pull-1"><p class="highlight-module__title">Remember</p><ul class="highlight-module__list"><li>It is pretty simple to add in a remember</li></ul></div></div></div><div class="container"><div class="content"><h3 id="related-content">Related Content</h3><pre><code>{% include modules/related.liquid
+  list=page.related.related-content %}
+</code></pre><p>In your Article YAML Preamble</p><div class="highlight"><pre><code class="yaml"><span class="l-Scalar-Plain">related</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">related-content</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">&lt;a href=&quot;index.html&quot;&gt;Style Guide&lt;/a&gt;</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">&lt;a href=&quot;../example-article/&quot;&gt;Example Article&lt;/a&gt;</span>
+</code></pre></div><div class="related-items"><div class="container"><div class="g-wide--push-1 g-medium--push-1"><h3 class="related-items--title">Related information</h3><ul class="list-links"><li class="list__item"><a href="index.html">Style Guide</a></li><li class="list__item"><a href="../example-article/index-2.html">Example Article</a></li></ul></div></div></div></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/resources/styleguide/markdown-guide by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:14 GMT -->
+</html>

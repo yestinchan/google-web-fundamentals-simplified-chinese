@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/render-tree-construction by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Render-tree construction, Layout, and Paint — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><meta itemprop="name" content="Render-tree construction, Layout, and Paint — Google Web Fundamentals"><meta itemprop="image" content="../../../../../imgs/lono.html"><meta itemprop="description" content="The CSSOM and DOM trees are combined into a render tree, which is then used to compute the layout of each visible element and serves as an input to the paint process which renders the pixels to screen. Optimizing each of these steps is critical to achieve optimal rendering performance."><link rel="stylesheet" media="screen" href="../../../css/styles.min.css"><body class="page--article article--critical-rendering-path theme--critical-rendering-path"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/performance/critical-rendering-path/render-tree-construction.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../multi-device-layouts/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../index-2.html" title="Documentation">Documentation</a> / <a href="../index-2.html" title="Optimizing Performance">Optimizing Performance</a> / <a href="index.html" title="Critical Rendering Path">Critical Rendering Path</a> /</p></nav><h1 class="tag editorial-header__title">Critical Rendering Path</h1><h2 class="editorial-header__subtitle">Render-tree construction, Layout, and Paint</h2><p class="editorial-header__excerpt">The CSSOM and DOM trees are combined into a render tree, which is then used to compute the layout of each visible element and serves as an input to the paint process which renders the pixels to screen. Optimizing each of these steps is critical to achieve optimal rendering performance.</p></div></div></div><div class="container"><div class="content"><style type="text/css">img, video, object {
+    max-width: 100%;
+  }
+
+  img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }</style><!-- <div class="toc" markdown="1">
+  <h3 class="toc__title">In this lesson</h3>
+  1. Table of Contents
+  {:toc .toc__list .list-anchor #toc}
+</div>
+ --><p>In the previous section on constructing the object model, we built the DOM and the CSSOM trees based on the HTML and CSS input. However, both of these are independent objects which capture different aspects of the document: one describes the content and the other the style rules that need to be applied to the document. How do we merge the two and get the browser to render pixels on the screen?</p></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>The DOM and CSSOM trees are combined to form the render tree</li><li>Render tree contains only the nodes required to render the page</li><li>Layout computes the exact position and size of each object</li><li>Paint is the last step that takes in the final render tree and renders the pixels to the screen</li></ul></div></div></div><div class="container"><div class="content"><p>The first step is for the browser to combine the DOM and CSSOM into a &#8220;render tree&#8221; that captures all the visible DOM content on the page, plus all the CSSOM style information for each node.</p><p><img src="images/render-tree-construction.png" alt="DOM and CSSOM are combined to create the render tree" class="center"></p><p>To construct the render tree, the browser roughly does the following:</p><ol><li>Starting at the root of the DOM tree, traverse each visible node.<ul><li>Some nodes are not visible at all (e.g. script tags, meta tags, and so on), and are omitted since they are not reflected in the rendered output.</li><li>Some nodes are hidden via CSS and are also omitted from the render tree - e.g. the span node in example above is missing from the render tree because we have an explicit rule that sets &#8220;display: none&#8221; property on it.</li></ul></li><li>For each visible node find the appropriate matching CSSOM rules and apply them.</li><li>Emit visible nodes with content and their computed styles.</li></ol></div></div><div class="highlight-module highlight-module--left"><div class="highlight-module__container icon-exclamation"><div class="highlight-module__content g-wide--pull-1"><p class="highlight-module__title">Note</p><ul class="highlight-module__list"><li>As a brief aside, note that 'visibility: hidden' is different from 'display: none'. The former makes the element invisible, but the element is still occupies space in the layout (i.e. it's rendered as an empty box), whereas the latter (display: none) removes the element entirely from the render tree such that the element is invisible and is not part of layout.</li></ul></div></div></div><div class="container"><div class="content"><p>The final output is a render that contains both the content and the style information of all the visible content on the screen - we&#8217;re getting close! <strong>With the render tree in place, we can proceed to the &#8220;layout&#8221; stage.</strong></p><p>Up to this point we&#8217;ve calculated which nodes should be visible and their computed styles, but we have not calculated their exact position and size within the viewport of the device - that&#8217;s the &#8220;layout&#8221; stage, also sometimes known as &#8220;reflow.&#8221;</p><p>To figure out the exact size and position of each object the browser begins at the root of the render tree and traverses it to compute the geometry of each object on the page. Let&#8217;s consider a simple hands-on example:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">&lt;html&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Critial Path: Hello world!<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 50%&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 50%&quot;</span><span class="nt">&gt;</span>Hello world!<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+          <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/performance/critical-rendering-path/nested">View full sample</a></div></div><div class="container"><div class="content"><p>The body of the above page contains two nested div&#8217;s: the first (parent) div sets the display size of the node to 50% of the viewport width, and the second div contained by the parent sets its width to be 50% of its parent - i.e. 25% of the viewport width!</p><p><img src="images/layout-viewport.png" alt="Calculating layout information" class="center"></p><p>The output of the layout process is a &#8220;box model&#8221; which precisely captures the exact position and size of each element within the viewport: all of the relative measures are converted to absolute pixels positions on the screen, and so on.</p><p>Finally, now that we know which nodes are visible, their computed styles, and geometry, we can finally pass this information to our final stage which will convert each node in the render tree to actual pixels on the screen - this step is often referred to as &#8220;painting&#8221; or &#8220;rasterizing.&#8221;</p><p>Did you follow all of that? Each of these steps requires a non-trivial amount of work by the browser, which also means that it can often take quite a bit of time. Thankfully, Chrome DevTools can help us get some insight into all three of the stages we&#8217;ve described above:</p><p><img src="images/layout-timeline.png" alt="Measuring layout in DevTools" class="center"></p><ul><li>The render tree construction and position and size calculation are captured with the &#8220;Layout&#8221; event in the Timeline.</li><li>Once layout is complete, the browser issues a &#8220;Paint Setup&#8221; and &#8220;Paint&#8221; events which convert the render tree to actual pixels on the screen.</li></ul><p>The time required to perform render tree construction, layout and paint will vary based on the size of the document, the applied styles, and of course, the device it is running on: the larger the document the more work the browser will have to do; the more complicated the styles are the more time will be consumed for painting also (e.g. a solid color is &#8220;cheap&#8221; to paint, and a drop shadow is much more &#8220;expensive&#8221; to compute and render).</p><p>Once all is said and done, our page is finally visible in the viewport - woohoo!</p><p><img src="images/device-dom-small.png" alt="Rendered Hello World page" class="center"></p><p>Let&#8217;s do a quick recap of all the steps the browser went through:</p><ol><li>Process HTML markup and build the DOM tree</li><li>Process CSS markup and build the CSSOM tree</li><li>Combine the DOM and CSSOM into a render tree</li><li>Run layout on the render tree to compute geometry of each node</li><li>Paint the individual nodes to the screen</li></ol><p>Our demo page may look very simple, but it requires quite a bit of work! Care to guess what would happen if the DOM, or CSSOM is modified? We would have to repeat the same process over again to figure out which pixels need to be re-rendered on the screen.</p><p><strong>Optimizing the critical rendering path is the process of minimizing the total amount of time spent in steps 1 through 5 in the above sequence.</strong> Doing so enables us to render content to the screen as soon as possible and also to reduces the amount of time between screen updates after the initial render - i.e. achieve higher refresh rate for interactive content.</p></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="02"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li title="Constructing the Object Model"><a href="constructing-the-object-model.html">Constructing the Object Model</a></li><li class="current" title="Render-tree construction, Layout, and Paint"><a href="render-tree-construction.html">Render-tree construction, Layout, and Paint <i class="icon icon-tick"></i></a></li><li title="Render Blocking CSS"><a href="render-blocking-css.html">Render Blocking CSS</a></li><li title="Adding Interactivity with JavaScript"><a href="adding-interactivity-with-javascript.html">Adding Interactivity with JavaScript</a></li><li title="Measuring the Critical Rendering Path with Navigation Timing"><a href="measure-crp.html">Measuring the Critical Rendering Path with Navigation Timing</a></li><li title="Analyzing Critical Rendering Path Performance"><a href="analyzing-crp.html">Analyzing Critical Rendering Path Performance</a></li><li title="Optimizing the Critical Rendering Path"><a href="optimizing-critical-rendering-path.html">Optimizing the Critical Rendering Path</a></li><li title="PageSpeed Rules and Recommendations"><a href="page-speed-rules-and-recommendations.html">PageSpeed Rules and Recommendations</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/render-tree-construction by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:57:03 GMT -->
+</html>

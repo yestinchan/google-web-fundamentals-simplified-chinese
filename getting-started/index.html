@@ -1,0 +1,191 @@
+<header id="gc-googlebar">
+  <div class="container">
+    <a href="http://developers.google.com/" id="gc-logo"><img alt="Google" src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg"></a>
+
+    <p class="beta" id="beta">此站仍在开发当中!<br>
+    <a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/getting-started/index.html" target="_blank">举报问题</a> 或者 <a href="https://github.com/Google/WebFundamentals" target="_blank">查看源代码</a>.</p>
+  </div>
+</header>
+
+<header class="main-header">
+  <h1 class="main-header__title"><a class="main-header__logo" href="https://developers.google.com/web/fundamentals" title="Go to Web Fundamentals">网络开发基础</a></h1>
+
+  <nav class="main-nav">
+    <ul class="main-nav__list clear">
+      <li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../index.html" title="Go to Web Fundamentals">网络开发基础</a></li>
+
+      <li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="your-first-multi-screen-site/index.html" title="Go to Getting Started">开始</a></li>
+
+      <li class="main-nav__item main-nav__item--documentation">
+        <a class="main-nav__link" href="../documentation/index.html" title="Go to Documentation">文档</a>
+
+        <div class="main-nav__secondary-nav">
+          <div class="main-nav__secondary-content">
+            <div class="main-nav__link--explore-wrapper">
+              <a class="main-nav__link main-nav__link--child main-nav__link--explore" href="../documentation/index.html" title="Explore The Documentation">探索文档</a>
+            </div>
+
+            <div class="clear">
+              <ul class="main-nav__list--child g-medium--2 g-wide--2">
+                <li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" href="../documentation/multi-device-layouts/index.html" title="Go to Multi-Device Layouts">多设备布局</a></li>
+
+                <li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" href="../documentation/user-input/index.html" title="Go to Forms and User Input">表格与用户输入</a></li>
+
+                <li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" href="../documentation/introduction-to-media/index.html" title="Go to Images, Video and Audio">图片, 声音以及影像</a></li>
+
+                <li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" href="../documentation/performance/index.html" title="Go to Performance">性能</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../resources/index.html" title="Go to Resources">资源 </a></li>
+    </ul>
+  </nav>
+</header><!-- <div class="page-header">
+    <div class="container">
+
+    <nav class="breadcrumbs">
+  <p>
+  
+  </p>
+</nav>
+
+
+    <h3 class="xxlarge text-divider"></h3>
+    <p class="page-header__excerpt g-wide==push-1 g-wide==pull-1">It can often seem daunting to get started building sites and experiences that work across all the devices that have access to the web.</p>
+    </div>
+  </div>
+
+  
+ -->
+
+<div class="guides-section">
+  <header class="container">
+    <h2 class="xxlarge">Getting Started</h2>
+
+    <p>Follow these guides and build web content users can access on any device they choose.</p>
+  </header>
+
+  <ul class="guides-list container-medium">
+    <li class="guides-list__item g--half theme--multi-screen">
+      <div class="primary-content">
+        <h3 class="xlarge"><a class="themed" href="your-first-multi-screen-site/index-2.html" title="Go to Your First Multi-Screen Site">Your First Multi-Screen Site</a></h3>
+
+        <p>The web is accessible on a huge range of devices from small-screen phones to huge-screen televisions. Learn how to build a site that works well across all these devices.</p>
+      </div>
+
+      <div class="secondary-content">
+        <ol class="list-links list-links--secondary">
+          <li><a href="your-first-multi-screen-site/content.html" title="Read the lesson Create Your Content and Structure">Create Your Content and Structure</a></li>
+
+          <li><a href="your-first-multi-screen-site/responsive.html" title="Read the lesson Make It Responsive">Make It Responsive</a></li>
+        </ol>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<footer id="gc-footer">
+  <div class="container" id="gc-copyright">
+    <a href="http://developers.google.com/"><img alt="Google Developers logo" id="developers-logo-footer" src="../../../_static/0f4dd8c48e/images/developers-logo-footer.png"></a>
+
+    <ul>
+      <li><a href="http://www.google.com/">Google</a></li>
+
+      <li><a href="http://developers.google.com/site-terms">Terms of Service</a></li>
+
+      <li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li>
+
+      <li><a href="http://developers.google.com/careers">Careers</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="grid-overlay clear">
+  <div class="g-medium--1 g-wide--1"></div>
+
+  <div class="g-medium--1 g-wide--1"></div>
+
+  <div class="g-medium--1 g-medium--last g-wide--1"></div>
+
+  <div class="g-wide--1 g-wide--last"></div>
+</div><script type="text/javascript">
+(function(document) {
+    var toggleDocumentationMenu = function() {
+      var navBtn = document.querySelector('.main-nav__btn');
+      var navList = document.querySelector('.main-nav__list');
+      var navIsOpenedClass = 'nav-is-opened';
+      var navListIsOpened = false;
+
+      navBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      if (!navListIsOpened) {
+        addClass(navList, navIsOpenedClass);
+        navListIsOpened = true;
+      } else {
+        removeClass(navList, navIsOpenedClass);
+        navListIsOpened = false;
+      }
+      });
+    }
+
+    var toggleMainNav = function() {
+      var documentationItem =
+        document.querySelector('.main-nav__item--documentation');
+      var documentationLink =
+        document.querySelector('.main-nav__item--documentation > .main-nav__link');
+      var documentationIsOpenedClass = 'subnav-is-opened';
+      var documentationIsOpened = false;
+
+      documentationLink.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      if (!documentationIsOpened) {
+        documentationIsOpened = true;
+        addClass(documentationItem, documentationIsOpenedClass);
+      } else {
+        documentationIsOpened = false;
+        removeClass(documentationItem, documentationIsOpenedClass);
+      }
+
+      });
+    }
+
+    var isTouch = function() {
+      return ('ontouchstart' in window) ||
+      window.DocumentTouch && document instanceof DocumentTouch;
+    };
+
+    var addClass = function (element, className) {
+      if (!element) { return; }
+      element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+    }
+
+    var removeClass = function(element, className) {
+      if (!element) { return; }
+      element.className = element.className.replace(className, '');
+    }
+
+    var html = document.querySelector('html');
+    removeClass(html, 'no-js');
+    addClass(html, 'js');
+
+    if (isTouch()) {
+      removeClass(html, 'no-touch');
+      addClass(html, 'is-touch');
+    }
+
+    toggleDocumentationMenu();
+    toggleMainNav();
+    })(document);
+</script><script>
+(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+</script><!-- Mirrored from developers.google.com/web/fundamentals/getting-started/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:14 GMT -->

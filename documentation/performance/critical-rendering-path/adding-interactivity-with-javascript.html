@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/adding-interactivity-with-javascript by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:57:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Adding Interactivity with JavaScript — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><meta itemprop="name" content="Adding Interactivity with JavaScript — Google Web Fundamentals"><meta itemprop="image" content="../../../../../imgs/lono.html"><meta itemprop="description" content="JavaScript allows us to modify just about every aspect of the page: content, styling, and its behavior to user interactions. However, JavaScript can also block DOM construction and delay when the page is rendered. Make your JavaScript async and eliminate any unnecessary JavaScript from the critical rendering path to deliver optimal performance."><link rel="stylesheet" media="screen" href="../../../css/styles.min.css"><body class="page--article article--critical-rendering-path theme--critical-rendering-path"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/performance/critical-rendering-path/adding-interactivity-with-javascript.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../multi-device-layouts/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../index-2.html" title="Documentation">Documentation</a> / <a href="../index-2.html" title="Optimizing Performance">Optimizing Performance</a> / <a href="index.html" title="Critical Rendering Path">Critical Rendering Path</a> /</p></nav><h1 class="tag editorial-header__title">Critical Rendering Path</h1><h2 class="editorial-header__subtitle">Adding Interactivity with JavaScript</h2><p class="editorial-header__excerpt">JavaScript allows us to modify just about every aspect of the page: content, styling, and its behavior to user interactions. However, JavaScript can also block DOM construction and delay when the page is rendered. Make your JavaScript async and eliminate any unnecessary JavaScript from the critical rendering path to deliver optimal performance.</p></div></div></div><div class="container"><div class="content"><style type="text/css">img, video, object {
+    max-width: 100%;
+  }
+
+  img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }</style><!-- <div class="toc" markdown="1">
+  <h3 class="toc__title">In this lesson</h3>
+  1. Table of Contents
+  {:toc .toc__list .list-anchor #toc}
+</div>
+ --></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>JavaScript can query and modify DOM and CSSOM</li><li>JavaScript execution blocks on CSSOM</li><li>JavaScript blocks DOM construction unless explicitly declared as async</li></ul></div></div></div><div class="container"><div class="content"><p>JavaScript is a dynamic language that runs in the browser and allows us to alter just about every aspect of how the page behaves: we can modify content on the page by adding or removing elements from the DOM tree, we can modify the CSSOM properties of each element, we can handle user input, and much more. To illustrate this in action, let&#8217;s augment our previous &#8220;Hello World&#8221; example with a simple inline script:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">&lt;html&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;style.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Critical Path: Script<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          Hello <span class="nt">&lt;span&gt;</span>web performance<span class="nt">&lt;/span&gt;</span> students!
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;div&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;awesome-photo.jpg&quot;</span><span class="nt">/&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;script&gt;</span>
+          <span class="kd">var</span> <span class="nx">span</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+          <span class="nx">span</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;interactive&#39;</span><span class="p">;</span> <span class="c1">// change DOM text content</span>
+          <span class="nx">span</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;inline&#39;</span><span class="p">;</span>  <span class="c1">// change CSSOM property</span>
+          <span class="c1">// create a new element, style it, and append it to the DOM</span>
+          <span class="kd">var</span> <span class="nx">loadTime</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+          <span class="nx">loadTime</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;You loaded this page on: &#39;</span> <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+          <span class="nx">loadTime</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">;</span>
+          <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">loadTime</span><span class="p">);</span>
+        <span class="nt">&lt;/script&gt;</span>
+          <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/performance/critical-rendering-path/script">View full sample</a></div></div><div class="container"><div class="content"><ul><li><p>JavaScript allows us to reach into the DOM and pull out the reference to the hidden span node - the node may not be visible in the render tree, but it&#8217;s still there in the DOM! Then, once we have the reference, we can change its text (via .textContent), and even override its calculated display style property from ‘none&#8217; to ‘inline&#8217;. Once all is said and done, our page will now display &#8220;<strong>Hello interactive students!</strong>&#8221;.</p></li><li><p>JavaScript also allows us to create, style, and append and remove new elements to the DOM. In fact, technically our entire page could be just one big JavaScript file which creates and styles the elements one by one - that would work, but working with HTML and CSS is much easier in practice. In the second part of our JavaScript function we create a new div element, set its text content, style it, and append it to the body.</p></li></ul><p><img src="images/device-js-small.png" class="center" alt="page preview"></p><p>With that, we&#8217;ve modified the content and the CSS style of an existing DOM node, and added an entirely new node to the document. Our page won&#8217;t win any design awards, but it illustrates the power and flexibility that JavaScript affords us.</p><p>However, there is a big performance caveat lurking underneath. JavaScript affords us a lot of power, but it also creates a lot of additional limitations on how and when the page is rendered.</p><p>First, notice that in the above example our inline script is near the bottom of the page. Why? Well, you should try it yourself, but if we move the script above the <em>span</em> element, you&#8217;ll notice that the script will fail and complain that it cannot find a reference to any <em>span</em> elements in the document - i.e. <em>getElementsByTagName(‘span&#8217;)</em> will return <em>null</em>. This demonstrates an important property: our script is executed at the exact point where it is inserted in the document. When the HTML parser encounters a script tag, it pauses its process of constructing the DOM and yields control over to the JavaScript engine; once the JavaScript engine has finished running, the browser then picks up from where it left off and resumes the DOM construction.</p><p>In other words, our script block can&#8217;t find any elements later in the page because they haven&#8217;t been processed yet! Or, put slightly differently: <strong>executing our inline script blocks DOM construction, which will also delay the initial render.</strong></p><p>Another subtle property of introducing scripts into our page is that they can read and modify not just the DOM, but also the CSSOM properties. In fact, that&#8217;s exactly what we&#8217;re doing in our example when we change the display property of the span element from none to inline. The end result? We now have a race condition.</p><p>What if the browser hasn&#8217;t finished downloading and building the CSSOM when we want to run our script? The answer is simple and not very good for performance: <strong>the browser will delay script execution until it has finished downloading and constructing the CSSOM, and while we&#8217;re waiting, the DOM construction is also blocked!</strong></p><p>In short, JavaScript introduces a lot of new dependencies between the DOM, CSSOM, and JavaScript execution and can lead to significant delays in how quickly the browser can process and render our page on the screen:</p><ol><li>The location of the script in the document is significant</li><li>DOM construction is paused when a script tag is encountered and until the script has finished executing</li><li>JavaScript can query and modify the DOM and CSSOM</li><li>JavaScript execution is delayed until the CSSOM is ready</li></ol><p>When we talk about &#8220;optimizing the critical rendering path,&#8221; to a large degree we&#8217;re talking about understanding and optimizing the dependency graph between HTML, CSS, and JavaScript.</p><h2 id="parser-blocking-vs-asynchronous-javascript">Parser Blocking vs. Asynchronous JavaScript</h2><p>By default, JavaScript execution is &#8220;parser blocking&#8221;: when the browser encounters a script in the document it must pause DOM construction, hand over the control to the JavaScript runtime and let the script execute before proceeding with DOM construction. We already saw this in action with an inline script in our earlier example. In fact, inline scripts are always parser blocking unless you take special care and write additional code to defer their execution.</p><p>What about scripts included via a script tag? Let&#8217;s take our previous example and extract our code into a separate file:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">&lt;html&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;style.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Critical Path: Script External<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          Hello <span class="nt">&lt;span&gt;</span>web performance<span class="nt">&lt;/span&gt;</span> students!
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;div&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;awesome-photo.jpg&quot;</span><span class="nt">/&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;app.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+          <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/performance/critical-rendering-path/split_script">View full sample</a></div></div><div class="container"><div class="content"><p><strong>app.js</strong></p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">span</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">span</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;interactive&#39;</span><span class="p">;</span> <span class="c1">// change DOM text content</span>
+    <span class="nx">span</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="s1">&#39;inline&#39;</span><span class="p">;</span>  <span class="c1">// change CSSOM property</span>
+    <span class="c1">// create a new element, style it, and append it to the DOM</span>
+    <span class="kd">var</span> <span class="nx">loadTime</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">);</span>
+    <span class="nx">loadTime</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;You loaded this page on: &#39;</span> <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="nx">loadTime</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">loadTime</span><span class="p">);</span>
+</pre></div></code> <a class="highlight-module__cta" href="../../../resources/samples/documentation/performance/critical-rendering-path/app.js">View full sample</a></div></div><div class="container"><div class="content"><p>Would you expect the execution order to be any different when we use a <code>&lt;script&gt;</code> tag instead of using an inline JavaScript snippet? Of course, the answer is &#8220;no&#8221; as they are identical and should behave in the same way. In both cases the browser will have to pause and execute the script before it can process the remainder of the document. However, <strong>in the case of an external JavaScript file the browser will also have to pause and wait for the script to be fetched from disk, cache, or a remote server, which can add tens to thousands of milliseconds of delay to the critical rendering path.</strong></p><p>That said, good news, we do have an escape hatch! By default all JavaScript is parser blocking and the browser doesn&#8217;t know what the script is planning to do on the page, hence it has to assume the worst case scenario and block the parser. However, what if we could signal to the browser and tell it that the script does not need to be executed at the exact point where it is referenced in the document? Doing so would allow the browser to continue to construct the DOM and let the script execute once it&#8217;s ready - e.g. once the file has been fetched from cache or a remote server.</p><p>So, how do we achieve this trick? It&#8217;s pretty simple, we can mark our script as <em>async</em>:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">&lt;html&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;style.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Critical Path: Script Async<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          Hello <span class="nt">&lt;span&gt;</span>web performance<span class="nt">&lt;/span&gt;</span> students!
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;div&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;awesome-photo.jpg&quot;</span><span class="nt">/&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;app.js&quot;</span> <span class="na">async</span><span class="nt">&gt;&lt;/script&gt;</span>
+          <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/performance/critical-rendering-path/split_script_async">View full sample</a></div></div><div class="container"><div class="content"><p>Adding the async keyword to the script tag tells the browser that it should not block the DOM construction while it waits for the script to become available - this is a huge performance win!</p></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="04"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li title="Constructing the Object Model"><a href="constructing-the-object-model.html">Constructing the Object Model</a></li><li title="Render-tree construction, Layout, and Paint"><a href="render-tree-construction.html">Render-tree construction, Layout, and Paint</a></li><li title="Render Blocking CSS"><a href="render-blocking-css.html">Render Blocking CSS</a></li><li class="current" title="Adding Interactivity with JavaScript"><a href="adding-interactivity-with-javascript.html">Adding Interactivity with JavaScript <i class="icon icon-tick"></i></a></li><li title="Measuring the Critical Rendering Path with Navigation Timing"><a href="measure-crp.html">Measuring the Critical Rendering Path with Navigation Timing</a></li><li title="Analyzing Critical Rendering Path Performance"><a href="analyzing-crp.html">Analyzing Critical Rendering Path Performance</a></li><li title="Optimizing the Critical Rendering Path"><a href="optimizing-critical-rendering-path.html">Optimizing the Critical Rendering Path</a></li><li title="PageSpeed Rules and Recommendations"><a href="page-speed-rules-and-recommendations.html">PageSpeed Rules and Recommendations</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/adding-interactivity-with-javascript by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:57:06 GMT -->
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/measure-crp by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:57:06 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Measuring the Critical Rendering Path with Navigation Timing — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><meta itemprop="name" content="Measuring the Critical Rendering Path with Navigation Timing — Google Web Fundamentals"><meta itemprop="image" content="../../../../../imgs/lono.html"><meta itemprop="description" content="You can't optimize what you can't measure. Thankfully, the Navigation Timing API gives us all the necessary tools to measure each step of the critical rendering path!"><link rel="stylesheet" media="screen" href="../../../css/styles.min.css"><body class="page--article article--critical-rendering-path theme--critical-rendering-path"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/performance/critical-rendering-path/measure-crp.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../multi-device-layouts/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../index-2.html" title="Documentation">Documentation</a> / <a href="../index-2.html" title="Optimizing Performance">Optimizing Performance</a> / <a href="index.html" title="Critical Rendering Path">Critical Rendering Path</a> /</p></nav><h1 class="tag editorial-header__title">Critical Rendering Path</h1><h2 class="editorial-header__subtitle">Measuring the Critical Rendering Path with Navigation Timing</h2><p class="editorial-header__excerpt">You can't optimize what you can't measure. Thankfully, the Navigation Timing API gives us all the necessary tools to measure each step of the critical rendering path!</p></div></div></div><div class="container"><div class="content"><style type="text/css">img, video, object {
+    max-width: 100%;
+  }
+
+  img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }</style><!-- <div class="toc" markdown="1">
+  <h3 class="toc__title">In this lesson</h3>
+  1. Table of Contents
+  {:toc .toc__list .list-anchor #toc}
+</div>
+ --></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>Navigation Timing provides high resolution timestamps for measuring CRP</li><li>Browser emits series of consumable events which capture various stages of the CRP</li></ul></div></div></div><div class="container"><div class="content"><p>The foundation of every solid performance strategy is good measurement and instrumentation. Turns out, that is exactly what the Navigation Timing API provides.</p><p><img src="images/dom-navtiming.png" class="center" alt="Navigation Timing"></p><p>Each of the labels in the above diagram corresponds to a high resolution timestamp that the browser tracks for each and every page it loads. In fact, in this specific case we&#8217;re only showing a fraction of all the different timestamps &mdash; for now we&#8217;re skipping all network related timestamps, but we&#8217;ll come back to them in a future lesson.</p><p>So, what do these timestamps mean?</p><ul><li><strong>domLoading:</strong> this is the starting timestamp of the entire process, the browser is about to start parsing the first received bytes of the HTML document.</li><li><strong>domInteractive:</strong> marks the point when the browser has finished parsing all of the HTML and DOM construction is complete.</li><li><strong>domContentLoaded:</strong> marks the point when both the DOM is ready and there are no stylesheets that are blocking JavaScript execution - meaning we can now (potentially) construct the render tree.<ul><li>Many JavaScript frameworks wait for this event before they start executing their own logic. For this reason the browser captures the <em>EventStart</em> and <em>EventEnd</em> timestamps to allow us to track how long this execution took.</li></ul></li><li><strong>domComplete:</strong> as the name implies, all of the processing is complete and all of the resources on the page (images, etc.) have finished downloading - i.e. the loading spinner has stopped spinning.</li><li><strong>loadEvent:</strong> as a final step in every page load the browser fires an &#8220;onload&#8221; event which can trigger additional application logic.</li></ul><p>The HTML specification dictates specific conditions for each and every event: when it should be fired, which conditions should be met, and so on. For our purposes, we&#8217;ll focus on a few key milestones related to the critical rendering path:</p><ul><li><strong>domInteractive</strong> marks when DOM is ready.</li><li><strong>domContentLoaded</strong> typically marks when <a href="http://calendar.perfplanet.com/2012/deciphering-the-critical-rendering-path/">both the DOM and CSSOM are ready</a>.<ul><li>If there is no parser blocking JavaScript than <em>documentContentLoaded</em> will fire immediately after <em>domInteractive</em>.</li></ul></li><li><strong>domComplete</strong> marks when the page and all of its subresources are ready.</li></ul><p>&nbsp; <!-- TODO: ummm... wth? --></p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">&lt;html&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Critical Path: Measure<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;style.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;script&gt;</span>
+          <span class="kd">function</span> <span class="nx">measureCRP</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">performance</span><span class="p">.</span><span class="nx">timing</span><span class="p">,</span>
+              <span class="nx">interactive</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">domInteractive</span> <span class="o">-</span> <span class="nx">t</span><span class="p">.</span><span class="nx">domLoading</span><span class="p">,</span>
+              <span class="nx">dcl</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">domContentLoadedEventStart</span> <span class="o">-</span> <span class="nx">t</span><span class="p">.</span><span class="nx">domLoading</span><span class="p">,</span>
+              <span class="nx">complete</span> <span class="o">=</span> <span class="nx">t</span><span class="p">.</span><span class="nx">domComplete</span> <span class="o">-</span> <span class="nx">t</span><span class="p">.</span><span class="nx">domLoading</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">stats</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">);</span>
+            <span class="nx">stats</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s1">&#39;interactive: &#39;</span> <span class="o">+</span> <span class="nx">interactive</span> <span class="o">+</span> <span class="s1">&#39;ms, &#39;</span> <span class="o">+</span>
+                <span class="s1">&#39;dcl: &#39;</span> <span class="o">+</span> <span class="nx">dcl</span> <span class="o">+</span> <span class="s1">&#39;ms, complete: &#39;</span> <span class="o">+</span> <span class="nx">complete</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">;</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">stats</span><span class="p">);</span>
+          <span class="p">}</span>
+        <span class="nt">&lt;/script&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body</span> <span class="na">onload=</span><span class="s">&quot;measureCRP()&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          Hello <span class="nt">&lt;span&gt;</span>web performance<span class="nt">&lt;/span&gt;</span> students!
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;div&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;awesome-photo.jpg&quot;</span><span class="nt">/&gt;&lt;/div&gt;</span>
+          <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/performance/critical-rendering-path/measure_crp">View full sample</a></div></div><div class="container"><div class="content"><p>The above example may seem a little daunting on first sight, but in reality it is actually pretty simple. The Navigation Timing API captures all the relevant timestamps and our code simply waits for the &#8220;onload&#8221; event to fire &mdash; recall that onload event fires after domInteractive, domContentLoaded and domComplete &mdash; and computes the difference between the various timestamps. <img src="images/device-navtiming-small.png" class="center" alt="NavTiming demo"></p><p>All said and done, we now have some specific milestones to track and a simple function to output these measurements. Note that instead of printing these metrics on the page you can also modify the code to send these metrics to an analytics server (<a href="https://support.google.com/analytics/answer/1205784?hl=en">Google Analytics does this automatically</a>), which is a great way to keep tabs on performance of your pages and identify candidate pages that can benefit from some optimization work.</p></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="05"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li title="Constructing the Object Model"><a href="constructing-the-object-model.html">Constructing the Object Model</a></li><li title="Render-tree construction, Layout, and Paint"><a href="render-tree-construction.html">Render-tree construction, Layout, and Paint</a></li><li title="Render Blocking CSS"><a href="render-blocking-css.html">Render Blocking CSS</a></li><li title="Adding Interactivity with JavaScript"><a href="adding-interactivity-with-javascript.html">Adding Interactivity with JavaScript</a></li><li class="current" title="Measuring the Critical Rendering Path with Navigation Timing"><a href="measure-crp.html">Measuring the Critical Rendering Path with Navigation Timing <i class="icon icon-tick"></i></a></li><li title="Analyzing Critical Rendering Path Performance"><a href="analyzing-crp.html">Analyzing Critical Rendering Path Performance</a></li><li title="Optimizing the Critical Rendering Path"><a href="optimizing-critical-rendering-path.html">Optimizing the Critical Rendering Path</a></li><li title="PageSpeed Rules and Recommendations"><a href="page-speed-rules-and-recommendations.html">PageSpeed Rules and Recommendations</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/measure-crp by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:57:08 GMT -->
+</html>

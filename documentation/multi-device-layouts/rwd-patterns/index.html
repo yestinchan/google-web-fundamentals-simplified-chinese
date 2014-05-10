@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/multi-device-layouts/rwd-patterns/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:53:53 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Responsive Web Design Patterns — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><link rel="publisher" href="https://plus.google.com/+PeteLePage"><meta itemprop="name" content="Responsive Web Design Patterns — Google Web Fundamentals"><meta itemprop="image" content="../../../../../imgs/lono.html"><meta itemprop="description" content="Responsive web design patterns are quickly evolving, but there are a handful of established patterns that work well across the desktop and mobile devices"><link rel="stylesheet" media="screen" href="../../../css/styles.min.css"><body class="page--article article--multi-device-layouts theme--multi-device-layouts"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/multi-device-layouts/rwd-patterns/index.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../../performance/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../index-2.html" title="Documentation">Documentation</a> / <a href="../index-2.html" title="Multi-Device Layouts">Multi-Device Layouts</a> /</p></nav><h1 class="tag editorial-header__title">Multi-Device Layouts</h1><h2 class="editorial-header__subtitle">Responsive Web Design Patterns</h2><p class="editorial-header__excerpt">Responsive web design patterns are quickly evolving, but there are a handful of established patterns that work well across the desktop and mobile devices.</p></div></div></div><div class="container"><div class="content"><div class="toc"><h3 class="toc__title">In this lesson</h3><ol class="toc__list list-anchor" id="toc"><li><a href="#mostly-fluid">Mostly fluid</a></li><li><a href="#column-drop">Column drop</a></li><li><a href="#layout-shifter">Layout shifter</a></li><li><a href="#tiny-tweaks">Tiny tweaks</a></li><li><a href="#off-canvas">Off canvas</a></li></ol></div><p>Most layouts used by responsive web pages can be categorized into one of five patterns: mostly fluid, column drop, layout shifter, tiny tweaks and off canvas. In some cases, a page may use a combination of patterns, for example column drop and off canvas. These patterns, originally identified by <a href="http://www.lukew.com/ff/entry.asp?1514">Luke Wroblewski</a>, provide a solid starting point for any responsive page.</p><h3 id="the-patterns">The patterns</h3><p>To create simple, easy-to-understand samples, each the samples below were created with real markup using <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Flexible_boxes"><code>flexbox</code></a>, typically with three content <code>div</code>&#8217;s contained within a primary container <code>div</code>. Each sample was written starting with the smallest view first and breakpoints were added when necessary. The <a href="http://caniuse.com/#search=flexbox">flexbox layout mode is well supported</a> for modern browsers, though may still require vendor prefixing for optimal support.</p><h2 id="mostly-fluid">Mostly fluid</h2><p>The mostly fluid pattern consists primarily of a fluid grid. On large or medium screens, it usually remains the same size, simply adjusting the margins on wider screens. On smaller screens, the fluid grid causes the main content to reflow, while columns are stacked vertically. One major advantage of this pattern is that it usually only requires one breakpoint between small screens and large screens.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/mostly-fluid"><img src="imgs/mostly-fluid.svg"> Try it</a></p><p>In the smallest view, each content <code>div</code> is stacked vertically. Once the screen width hits 600px, the primary content <code>div</code> remains at <code>width: 100%</code>, while the secondary <code>div</code>&#8217;s are shown as two columns below the primary <code>div</code>. Beyond 800px, the container <code>div</code> becomes fixed width and is centered on the screen.</p><p>Sites using this pattern include:</p><ul><li><a href="http://mediaqueri.es/ala/">A List Apart</a></li><li><a href="http://mediaqueri.es/">Media Queries</a></li><li><a href="http://simplebits.com/">SimpleBits</a></li></ul></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nc">.container</span> <span class="p">{</span>
+      <span class="k">display</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;</span>
+      <span class="k">display</span><span class="o">:</span> <span class="n">flex</span><span class="p">;</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="n">wrap</span><span class="p">;</span>
+      <span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="n">wrap</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c1</span><span class="o">,</span> <span class="nc">.c2</span><span class="o">,</span> <span class="nc">.c3</span> <span class="p">{</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.c2</span><span class="o">,</span> <span class="nc">.c3</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">50</span><span class="o">%</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.container</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">800px</span><span class="p">;</span>
+        <span class="k">margin-left</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+        <span class="k">margin-right</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/mostly-fluid">View full sample</a></div></div><div class="container"><div class="content"><h2 id="column-drop">Column drop</h2><p>For full-width multi-column layouts, column drop simply stacks the columns vertically as the window width becomes too narrow for the content. Eventually this results in all of the columns being stacked vertically. Choosing breakpoints for this layout pattern is dependent on the content and will change for each design.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/column-drop"><img src="imgs/column-drop.svg"> Try it</a></p><p>Like the mostly fluid sample, content is stacked vertically in the smallest view, but as the screen expands beyond 600px, the primary and secondary content <code>div</code>&#8217;s take the full width of the screen. The order of the <code>div</code>&#8217;s is set using the order CSS property. At 800px all three content <code>div</code>&#8217;s are shown, using the full screen width.</p><p>Sites using this pattern include:</p><ul><li><a href="http://modernizr.com/">Modernizr</a></li><li><a href="http://weenudge.com/">Wee Nudge</a></li></ul></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nc">.container</span> <span class="p">{</span>
+      <span class="k">display</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;</span>
+      <span class="k">display</span><span class="o">:</span> <span class="n">flex</span><span class="p">;</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="n">wrap</span><span class="p">;</span>
+      <span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="n">wrap</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c1</span><span class="o">,</span> <span class="nc">.c2</span><span class="o">,</span> <span class="nc">.c3</span> <span class="p">{</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.c1</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">60</span><span class="o">%</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">order</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+        <span class="n">order</span><span class="o">:</span> <span class="m">2</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nc">.c2</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">40</span><span class="o">%</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">order</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+        <span class="n">order</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nc">.c3</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">order</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span>
+        <span class="n">order</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.c2</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">20</span><span class="o">%</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nc">.c3</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">20</span><span class="o">%</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/column-drop">View full sample</a></div></div><div class="container"><div class="content"><h2 id="layout-shifter">Layout shifter</h2><p>The layout shifter pattern is the most responsive to with multiple breakpoints across several screen widths. Key to this layout is the way content moves about, instead of reflowing and dropping below other columns. Due to the significant differences between each major breakpoint, it is more complex to maintain and likely involves changes within elements, not just overall content layout.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/layout-shifter"><img src="imgs/layout-shifter.svg"> Try it</a></p><p>This simplified example shows the layout shifter pattern, on smaller screens content is stacked vertically, but changes significantly as the screen becomes larger, with a left <code>div</code> and two stacked <code>div</code>&#8217;s on the right.</p><p>Sites using this pattern include:</p><ul><li><a href="http://foodsense.is/">Food Sense</a></li><li><a href="http://alistapart.com/d/responsive-web-design/ex/ex-site-FINAL.html">Seminal Responsive Design Example</a></li><li><a href="http://www.anderssonwise.com/">Andersson-Wise Architects</a></li></ul></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nc">.container</span> <span class="p">{</span>
+      <span class="k">display</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;</span>
+      <span class="k">display</span><span class="o">:</span> <span class="n">flex</span><span class="p">;</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="n">wrap</span><span class="p">;</span>
+      <span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="n">wrap</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c1</span><span class="o">,</span> <span class="nc">.c2</span><span class="o">,</span> <span class="nc">.c3</span><span class="o">,</span> <span class="nc">.c4</span> <span class="p">{</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.c1</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">25</span><span class="o">%</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nc">.c4</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">75</span><span class="o">%</span><span class="p">;</span>
+      <span class="p">}</span>
+
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.container</span> <span class="p">{</span>
+        <span class="k">width</span><span class="o">:</span> <span class="m">800px</span><span class="p">;</span>
+        <span class="k">margin-left</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+        <span class="k">margin-right</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/layout-shifter">View full sample</a></div></div><div class="container"><div class="content"><h2 id="tiny-tweaks">Tiny tweaks</h2><p>Tiny tweaks simply makes small changes to the layout, such as adjusting font size, resizing images or moving content around in very minor ways. It works well on single column layouts such as one page linear websites, text heavy articles.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/tiny-tweaks"><img src="imgs/tiny-tweaks.svg"> Try it</a></p><p>As its name implies, little changes with this sample as the screen size changes. As the screen width gets larger, so do the font size and padding.</p><p>Sites using this pattern include:</p><ul><li><a href="http://shinydemos.com/">Opera&#8217;s Shiny Demos</a></li><li><a href="http://gingerwhale.com/">Ginger Whale</a></li><li><a href="http://futurefriendlyweb.com/">Future Friendly</a></li></ul></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nc">.c1</span> <span class="p">{</span>
+      <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">500px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.c1</span> <span class="p">{</span>
+        <span class="k">padding</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span> <span class="m">1.5em</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nc">.c1</span> <span class="p">{</span>
+        <span class="k">padding</span><span class="o">:</span> <span class="m">40px</span><span class="p">;</span>
+        <span class="k">font-size</span><span class="o">:</span> <span class="m">2em</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/tiny-tweaks">View full sample</a></div></div><div class="container"><div class="content"><h2 id="off-canvas">Off canvas</h2><p>Rather than stacking content vertically, the off canvas pattern places less frequently used content, perhaps navigation or app menus off screen, only showing it when the screen size is large enough, and on smaller screens, content is only a click away.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/off-canvas"><img src="imgs/off-canvas.svg"> Try it</a></p><p>Rather than stacking content vertically, this sample hides two of the content <code>div</code>s off screen by using a <code>transform: translate(-250px, 0)</code>. JavaScript is used to show the divs by adding an open class to the element to make visible. As the screen gets wider, the off-screen positioning is removed from the elements and they&#8217;re shown within the visible viewport.</p><p>Note in this sample, Safari for iOS 6 and Android Browser do not support the <code>flex-flow: row nowrap</code> feature of <code>flexbox</code>, so we’ve had to fallback to absolute positioning.</p><p>Sites using this pattern include:</p><ul><li><a href="http://www.html5rocks.com/en/tutorials/developertools/async-call-stack/">HTML5Rocks Articles</a></li><li><a href="http://www.google.com/nexus/">Google Nexus</a></li><li><a href="https://m.facebook.com/">Facebook&#8217;s Mobile Site</a></li></ul></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">body</span> <span class="p">{</span>
+      <span class="k">overflow-x</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="nc">.container</span> <span class="p">{</span>
+      <span class="k">display</span><span class="o">:</span> <span class="k">block</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c1</span><span class="o">,</span> <span class="nc">.c3</span> <span class="p">{</span>
+      <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">250px</span><span class="p">;</span>
+      <span class="k">height</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+    
+      <span class="c">/*</span>
+<span class="c">        This is a trick to improve performance on newer versions of Chrome</span>
+<span class="c">        #perfmatters</span>
+<span class="c">      */</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">backface</span><span class="o">-</span><span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+      <span class="n">backface</span><span class="o">-</span><span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span> <span class="m">0.4s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+      <span class="n">transition</span><span class="o">:</span> <span class="n">transform</span> <span class="m">0.4s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+    
+      <span class="k">z-index</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c1</span> <span class="p">{</span>
+      <span class="c">/*</span>
+<span class="c">      Using translate3d as a trick to improve performance on older versions of Chrome</span>
+<span class="c">      See: http://aerotwist.com/blog/on-translate3d-and-layer-creation-hacks/</span>
+<span class="c">      #perfmatters</span>
+<span class="c">      */</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-250px</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+      <span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-250px</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c2</span> <span class="p">{</span>
+      <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+      <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="nc">.c3</span> <span class="p">{</span>
+      <span class="k">left</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c1.open</span> <span class="p">{</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+      <span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nc">.c3.open</span> <span class="p">{</span>
+      <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-250px</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+      <span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-250px</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">500px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="c">/* If the screen is wider then 500px, use Flexbox */</span>
+      <span class="nc">.container</span> <span class="p">{</span>
+        <span class="k">display</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;</span>
+        <span class="k">display</span><span class="o">:</span> <span class="n">flex</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="k">nowrap</span><span class="p">;</span>
+        <span class="n">flex</span><span class="o">-</span><span class="n">flow</span><span class="o">:</span> <span class="n">row</span> <span class="k">nowrap</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nc">.c1</span> <span class="p">{</span>
+        <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">none</span> <span class="m">0s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+        <span class="n">transition</span><span class="o">:</span> <span class="k">none</span> <span class="m">0s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+        <span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+      <span class="p">}</span>
+      <span class="nc">.c2</span> <span class="p">{</span>
+        <span class="k">position</span><span class="o">:</span> <span class="k">static</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">@media</span> <span class="o">(</span><span class="nt">min-width</span><span class="o">:</span> <span class="nt">800px</span><span class="o">)</span> <span class="p">{</span>
+      <span class="nt">body</span> <span class="p">{</span>
+        <span class="k">overflow-x</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nc">.c3</span> <span class="p">{</span>
+        <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+        <span class="k">left</span><span class="o">:</span> <span class="k">auto</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="k">none</span> <span class="m">0s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+        <span class="n">transition</span><span class="o">:</span> <span class="k">none</span> <span class="m">0s</span> <span class="n">ease</span><span class="o">-</span><span class="n">out</span><span class="p">;</span>
+        <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+        <span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/rwd-patterns/off-canvas">View full sample</a></div></div><div class="container"><div class="content"></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="02"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li title="Responsive Web Design Fundamentals"><a href="../rwd-fundamentals/index.html">Responsive Web Design Fundamentals</a></li><li class="current" title="Responsive Web Design Patterns"><a href="index.html">Responsive Web Design Patterns <i class="icon icon-tick"></i></a></li><li title="Navigation and Action Patterns"><a href="../navigation-patterns/index.html">Navigation and Action Patterns</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/multi-device-layouts/rwd-patterns/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:54:02 GMT -->
+</html>
