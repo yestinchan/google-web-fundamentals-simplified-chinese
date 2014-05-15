@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/constructing-the-object-model by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:54 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>Constructing the Object Model — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><meta itemprop="name" content="Constructing the Object Model — Google Web Fundamentals"><meta itemprop="image" content="../../../../../imgs/lono.html"><meta itemprop="description" content="Before the browser can render content to the screen it needs to construct the DOM and CSSOM trees. As a result, we need to ensure that we deliver both the HTML and CSS to the browser as fast as possible."><link rel="stylesheet" media="screen" href="../../../css/styles.min.css"><body class="page--article article--critical-rendering-path theme--critical-rendering-path"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/performance/critical-rendering-path/constructing-the-object-model.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../multi-device-layouts/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../index-2.html" title="Documentation">Documentation</a> / <a href="../index-2.html" title="Optimizing Performance">Optimizing Performance</a> / <a href="index.html" title="Critical Rendering Path">Critical Rendering Path</a> /</p></nav><h1 class="tag editorial-header__title">Critical Rendering Path</h1><h2 class="editorial-header__subtitle">Constructing the Object Model</h2><p class="editorial-header__excerpt">Before the browser can render the page it needs to construct the DOM and CSSOM trees. As a result, we need to ensure that we deliver both the HTML and CSS to the browser as fast as possible.</p></div></div></div><div class="container"><div class="content"><style type="text/css">img, video, object {
+    max-width: 100%;
+  }
+
+  img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }</style><!-- <div class="toc" markdown="1">
+  <h3 class="toc__title">In this lesson</h3>
+  1. Table of Contents
+  {:toc .toc__list .list-anchor #toc}
+</div>
+ --></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>Bytes → characters → tokens → nodes → object model</li><li>HTML markup is transformed into a Document Object Model (DOM), CSS markup is transformed into a CSS Object Model (CSSOM)</li><li>DOM and CSSOM are independent data structures</li><li>Chrome DevTools Timeline allows us to capture and inspect the construction and processing costs of DOM and CSSOM</li></ul></div></div></div><div class="container"><div class="content"><h2 id="document-object-model-dom">Document Object Model (DOM)</h2></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">&lt;html&gt;</span>
+      <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1.0&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;style.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>Critical Path<span class="nt">&lt;/title&gt;</span>
+      <span class="nt">&lt;/head&gt;</span>
+      <span class="nt">&lt;body&gt;</span>
+        <span class="nt">&lt;p&gt;</span>
+          Hello <span class="nt">&lt;span&gt;</span>web performance<span class="nt">&lt;/span&gt;</span> students!
+        <span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;div&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;awesome-photo.jpg&quot;</span><span class="nt">/&gt;&lt;/div&gt;</span>
+          <span class="nt">&lt;/body&gt;</span>
+    <span class="nt">&lt;/html&gt;</span>
+</pre></div></code> <a class="highlight-module__cta" href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/performance/critical-rendering-path/basic_dom">View full sample</a></div></div><div class="container"><div class="content"><p>Let’s start, with the simplest possible case: a plain HTML page with some text and a single image. What does the browser need to do to process this simple page?</p><p><img src="images/full-process.png" alt="DOM construction process"></p><ol><li><strong>Conversion:</strong> the browser reads the raw bytes of the HTML off the disk or network and translates them to individual characters based on specified encoding of the file (e.g. UTF-8).</li><li><strong>Tokenizing:</strong> the browser converts strings of characters into distinct tokens specified by the <a href="http://www.w3.org/TR/html5/">W3C HTML5 standard</a> - e.g. &#8220;&lt;html&gt;&#8221;, &#8220;&lt;body&gt;&#8221; and other strings within the &#8220;angle brackets&#8221;. Each token has a special meaning and a set of rules.</li><li><strong>Lexing:</strong> the emitted tokens are converted into &#8220;objects&#8221; which define their properties and rules.</li><li><strong>DOM construction:</strong> Finally, because the HTML markup defines relationships between different tags (some tags are contained within tags) the created objects are linked in a tree data structure that also captures the parent-child relationships defined in the original markup: <em>HTML</em> object is a parent of the <em>body</em> object, the <em>body</em> is a parent of the <em>paragraph</em> object, and so on.</li></ol><p><img src="images/dom-tree.png" class="center" alt="DOM tree"></p><p><strong>The final output of this entire process is the Document Object Model, or the &#8220;DOM&#8221; of our simple page, which the browser uses for all further processing of the page.</strong></p><p>Every time the browser has to process HTML markup it has to step through all of the steps above: convert bytes to characters, identify tokens, convert tokens to nodes, and build the DOM tree. This entire process can take some time, especially if we have a large amount of HTML to process.</p><p><img src="images/dom-timeline.png" class="center" alt="Tracing DOM construction in DevTools"></p></div></div><div class="highlight-module highlight-module--left"><div class="highlight-module__container icon-exclamation"><div class="highlight-module__content g-wide--pull-1"><p class="highlight-module__title">Note</p><ul class="highlight-module__list"><li>We'll assume that you have basic familiarity with Chrome DevTools - i.e. you know how to capture a network waterfall, or record a timeline. If you need a quick refresher, check out the <a href="https://developers.google.com/chrome-developer-tools/">Chrome Developer Tools documentation</a>, or if you're new to DevTools, I recommend taking the Codeschool <a href="http://discover-devtools.codeschool.com/">Discover DevTools</a> course.</li></ul></div></div></div><div class="container"><div class="content"><p>If you open up Chrome DevTools and record a timeline while the page is loaded, you can see the actual time taken to perform this step &mdash; in example above, it took us ~5ms to convert a chunk of HTML bytes into a DOM tree. Of course, if the page was larger, as most pages are, this process might take significantly longer. You will see in our future sections on creating smooth animations that this can easily become your bottleneck if the browser has to process large amounts of HTML. That said, let’s not get ahead of ourselves…</p><p>With the DOM tree ready, do we have enough information to render the page to the screen? Not yet! The DOM tree captures the properties and relationships of the document markup, but it does not tell us anything about how the element should look when rendered. That’s the responsibility of the CSSOM, which we turn to next!</p><h2 id="css-object-model-cssom">CSS Object Model (CSSOM)</h2><p>While the browser was constructing the DOM of our simple page, it encountered a link tag in the head section of the document referencing an external CSS stylesheet: style.css. Anticipating that it will need this resource to render the page, it immediately dispatches a request for this resource, which comes back with the following content:</p></div></div><div class="highlight-module highlight-module--code highlight-module--right"><div class="highlight-module__container"><code class="html"><div class="highlight"><pre>    <span class="nt">body</span> <span class="p">{</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">16px</span> <span class="p">}</span>
+       <span class="nt">p</span> <span class="p">{</span> <span class="k">font-weight</span><span class="o">:</span> <span class="k">bold</span> <span class="p">}</span>
+    <span class="nt">span</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">red</span> <span class="p">}</span>
+    <span class="nt">span</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span> <span class="p">}</span>
+     <span class="nt">img</span> <span class="p">{</span> <span class="k">float</span><span class="o">:</span> <span class="k">right</span> <span class="p">}</span>
+</pre></div></code> <a class="highlight-module__cta" href="../../../resources/samples/documentation/performance/critical-rendering-path/style.css">View full sample</a></div></div><div class="container"><div class="content"><p>Of course, we could have declared our styles directly within the HTML markup (inline), but keeping our CSS independent of HTML allows us to treat content and design as separate concerns: the designers can work on CSS, developers can focus on HTML, and so on.</p><p>Just as with HTML, we need to convert the received CSS rules into something that the browser can understand and work with. Hence, once again, we repeat a very similar process as we did with HTML:</p><p><img src="images/cssom-construction.png" class="center" alt="CSSOM construction steps"></p><p>The CSS bytes are converted into characters, then to tokens and nodes, and finally are linked into a tree structure known as the &#8220;CSS Object Model&#8221;, or CSSOM for short:</p><p><img src="images/cssom-tree.png" class="center" alt="CSSOM tree"></p><p>Why does the CSSOM have a tree structure? When computing the final set of styles for any object on the page, the browser starts with the most general rule applicable to that node (e.g. if it is a child of body element, then all body styles apply) and then recursively refines the computed styles by applying more specific rules - i.e. the rules &#8220;cascade down&#8221;.</p><p>To make it more concrete, consider the CSSOM tree above. Any text contained within the <em>span</em> tag that is placed within the body element will have a font size of 16 pixels and have red text - the font-size directive cascades down from body to the span. However, if a span tag is child of a paragraph (p) tag, then its contents are not displayed.</p><p>Also, note that the above tree is not the complete CSSOM tree and only shows the styles we decided to override in our stylesheet. Every browser provides a default set of styles also known as &#8220;user agent styles&#8221; &#8211; that’s what we see when we don’t provide any of our own &#8211; and our styles simply override these defaults (e.g. <a href="http://www.iecss.com/">default IE styles</a>). If you have ever inspected your &#8220;computed styles&#8221; in Chrome DevTools and wondered where all the styles are coming from, now you know!</p><p>Curious to know how long the CSS processing took? Record a timeline in DevTools and look for &#8220;Recalculate Style&#8221; event: unlike DOM parsing, the timeline doesn’t show a separate &#8220;Parse CSS&#8221; entry, and instead captures parsing and CSSOM tree construction, plus the recursive calculation of computed styles under this one event.</p><p><img src="images/cssom-timeline.png" class="center" alt="Tracing CSSOM construction in DevTools"></p><p>Our trivial stylesheet takes ~0.6ms to process and affects 8 elements on the page &#8211; not much, but once again, not free. However, where did the 8 elements come from? The CSSOM and DOM and are independent data structures! Turns out, the browser is hiding an important step. Next, lets talk about the render tree that links the DOM and CSSOM together.</p></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="01"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li class="current" title="Constructing the Object Model"><a href="constructing-the-object-model.html">Constructing the Object Model <i class="icon icon-tick"></i></a></li><li title="Render-tree construction, Layout, and Paint"><a href="render-tree-construction.html">Render-tree construction, Layout, and Paint</a></li><li title="Render Blocking CSS"><a href="render-blocking-css.html">Render Blocking CSS</a></li><li title="Adding Interactivity with JavaScript"><a href="adding-interactivity-with-javascript.html">Adding Interactivity with JavaScript</a></li><li title="Measuring the Critical Rendering Path with Navigation Timing"><a href="measure-crp.html">Measuring the Critical Rendering Path with Navigation Timing</a></li><li title="Analyzing Critical Rendering Path Performance"><a href="analyzing-crp.html">Analyzing Critical Rendering Path Performance</a></li><li title="Optimizing the Critical Rendering Path"><a href="optimizing-critical-rendering-path.html">Optimizing the Critical Rendering Path</a></li><li title="PageSpeed Rules and Recommendations"><a href="page-speed-rules-and-recommendations.html">PageSpeed Rules and Recommendations</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/performance/critical-rendering-path/constructing-the-object-model by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:59 GMT -->
+</html>

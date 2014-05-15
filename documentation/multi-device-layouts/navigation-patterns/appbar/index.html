@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/multi-device-layouts/navigation-patterns/appbar/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:14 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<title>App Bar — Google Web Fundamentals</title><meta name="author" content=""><meta name="description" content=""><link rel="icon" href="../../../../favicon.ico"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta id="viewport" name="viewport" content="width=device-width, initial-scale=1"><meta property="twitter:account_id" content="@chromium_dev"><link rel="publisher" href="https://plus.google.com/+MattGaunt"><meta itemprop="name" content="App Bar — Google Web Fundamentals"><meta itemprop="image" content="../../../../../../imgs/lono.html"><meta itemprop="description" content="<img class='g-medium--full g-wide--full' src='appbar/images/appbar.png/index.html'>Users have learnt to expect a header on all of the desktop sites, but on mobile you should be using the App Bar."><link rel="stylesheet" media="screen" href="../../../../css/styles.min.css"><body class="page--article article--navigation-patterns theme--navigation-patterns"><header id="gc-googlebar"><div class="container"><a id="gc-logo" href="http://developers.google.com/"><img src="http://developers.google.com/_static/0f4dd8c48e/images/developers-logo.svg" alt="Google"></a><p id="beta" class="beta"><i class="icon icon-cog"></i>This site is still a work in progress!<br><a href="https://github.com/Google/WebFundamentals/issues/new?title=Issue%20in:%20/documentation/multi-device-layouts/navigation-patterns/appbar/index.html" target="_blank" target="_blank">Report an issue</a> or <a href="https://github.com/Google/WebFundamentals" target="_blank" target="_blank">view source</a>.</p></div></header><header class="main-header"><h1 class="main-header__title"><a href="https://developers.google.com/web/fundamentals" title="Web Essentials" title="Go to Web Fundamentals" class="main-header__logo">Web Fundamentals</a></h1><nav class="main-nav"><ul class="main-nav__list clear"><li class="main-nav__item main-nav__item--web-fundamentals main-nav__item--home"><a class="main-nav__link" href="../../../../index.html" title="Go to Web Fundamentals">Web Fundamentals <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--getting-started"><a class="main-nav__link" href="../../../../getting-started/your-first-multi-screen-site/index.html" title="Go to Getting Started">Getting Started <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item main-nav__item--documentation"><a class="main-nav__link" href="../../../index.html" title="Go to Documentation">Documentation <i class="main-nav__icon icon icon-custom"></i></a><div class="main-nav__secondary-nav"><div class="main-nav__secondary-content"><div class="main-nav__link--explore-wrapper"><a href="../../../index.html" title="Explore The Documentation" class="main-nav__link main-nav__link--child main-nav__link--explore">Explore The Documentation <i class="main-nav__icon icon icon-chevron-right"></i></a></div><div class="clear"><ul class="main-nav__list--child g-medium--2 g-wide--2"><li class="main-nav__item--child nav-theme--multi-device-layouts"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Multi-Device Layouts" href="../../index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-multi-device-layouts"></i></span> Multi-Device Layouts <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--user-input"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Forms and User Input" href="../../../user-input/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-user-input"></i></span> Forms and User Input <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--introduction-to-media"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Images, Video and Audio" href="../../../introduction-to-media/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-introduction-to-media"></i></span> Images, Video and Audio <i class="main-nav__icon icon icon-chevron-right"></i></a></li><li class="main-nav__item--child nav-theme--performance"><a class="main-nav__link main-nav__link--child themed--hover" title="Go to Performance" href="../../../performance/index.html"><span class="main-nav__guide-icon icon-circle--nav themed--background"><i class="icon icon-performance"></i></span> Performance <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul></div></div></div></li><li class="main-nav__item main-nav__item--resources"><a class="main-nav__link" href="../../../../resources/index.html" title="Go to Resources">Resources <i class="main-nav__icon icon icon-chevron-right"></i></a></li></ul><button class="main-nav__btn btn--toggle-nav"><i class="icon icon-menu"></i></button></nav></header><div class="article-container"><div class="editorial-header"><div class="container"><div class="content"><nav class="breadcrumbs"><p><a href="../../../index-2.html" title="Documentation">Documentation</a> / <a href="../../index-2.html" title="Multi-Device Layouts">Multi-Device Layouts</a> / <a href="../index.html" title="Navigation and Action Patterns">Navigation and Action Patterns</a> /</p></nav><h1 class="tag editorial-header__title">Navigation and Action Patterns</h1><h2 class="editorial-header__subtitle">App Bar</h2><p class="editorial-header__excerpt">Users have learnt to expect a header on all of the desktop sites, but on mobile you should be using the App Bar.</p></div></div></div><div class="container"><div class="content"><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/navigation-patterns/appbar-navdrawer-sample1"><img class="g-medium--full g-wide--full" src="images/appbar.png"></a></p><div style="clear: both"></div><p>One expectation users will make when they land on your site is that your site&#8217;s logo will be at the top of every page and clicking it will take them to your home page.</p><p>Traditionally the web has used page headers for this. On mobile devices use the App Bar.</p></div></div><div class="highlight-module highlight-module--left highlight-module--learning"><div class="highlight-module__container icon-star"><div class="highlight-module__content g-wide--push-1 g-wide--pull-1 g-medium--push-1"><p class="highlight-module__title">Key Takeaways</p><ul class="highlight-module__list"><li>Your logo should be placed at the top of each screen and take the user back to your homepage.</li><li>If you have a menu button, place it on the far left or far right of the App Bar and keep it in the same place throughout your site.</li><li>Key actions for your page should be kept in the App Bar.</li></ul></div></div></div><div class="container"><div class="content"><p>The App Bar consists of three elements.</p><ul><li>Your sites logo</li><li>Primary actions</li><li>(Optional) Menu button</li></ul><p>Nearly every site on the internet will have actions they enable their users to perform, search for example. Place buttons to perform these actions in the App Bar, giving your user a common to find out what the current actions are available on that page.</p><p>If you have a menu, use the hamburger icon (three vertical lines) and place it on the far left or far right. Once you have selected a side, don&#8217;t move it, always keep it in the same position meaning the user only needs to learn where it is once.</p><h2 id="left-vs-right-menu-button">Left vs Right Menu Button</h2><p>If you have a slide in menu, you have the choice of putting the menu on the left or right hand side.</p><p>The top left corner is perceived by the user as where the most important elements of your UI lives, however it can also one of hardest places to reach when holding the phone one handed. Putting the menu on the top right still gives it prominence and importance, but is easier to tap while holding the phone single handidly.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/navigation-patterns/appbar-navdrawer-sample1"><img class="g--half" src="images/appbar-menu-left.png"></a> <a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/navigation-patterns/appbar-navdrawer-sample2"><img class="g--half g--last" src="images/appbar-menu-right.png"></a></p><div style="clear: both"></div><h2 id="guidelines">Guidelines</h2><p>The App Bar is a set of principals that you should apply to give your users a predictable experience, but there is plenty of opportunity to be creative in terms of style of the bar, button and interactions.</p><p><a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/navigation-patterns/appbar-navdrawer-bottombar-sample"><img class="g--half" src="images/appbar-alt-1.png"></a> <a href="https://google-developers.appspot.com/web/fundamentals/resources/samples/documentation/multi-device-layouts/navigation-patterns/appbar-navdrawer-sample"><img class="g--half g--last" src="images/appbar-alt-2.png"></a></p><div style="clear: both"></div></div></div><div class="next-lessons container-medium themed--background" data-current-lesson="01"><h3><i class="icon icon-lessons"></i> Next Lessons</h3><ol class="list-lessons list-links"><li class="current" title="App Bar"><a href="index.html">App Bar <i class="icon icon-tick"></i></a></li><li title="Tab Bar"><a href="../tabbar/index.html">Tab Bar</a></li><li title="Navigation Drawer"><a href="../navigationdrawer/index.html">Navigation Drawer</a></li><li title="Bottom Bar"><a href="../bottombar/index.html">Bottom Bar</a></li></ol></div></div><!-- /.article-container --><div class="container clear"><div id="gc-content-license" class="gc-content-license g-wide--3 g-wide--last"><p>Except as otherwise noted, the content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>. For details, see our <a href="https://developers.google.com/site-policies">Site Policies</a>.</p></div></div><footer id="gc-footer"><div id="gc-copyright" class="container"><a href="http://developers.google.com/"><img id="developers-logo-footer" src="../../../../../../_static/0f4dd8c48e/images/developers-logo-footer.png" alt="Google Developers logo"></a><ul><li><a href="http://www.google.com/">Google</a></li><li><a href="http://developers.google.com/site-terms">Terms of Service</a></li><li><a href="http://www.google.com/intl/en/privacy/">Privacy Policy</a></li><li><a href="http://developers.google.com/careers">Careers</a></li></ul></div></footer><div class="grid-overlay clear"><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-wide--1"></div><div class="g-medium--1 g-medium--last g-wide--1"></div><div class="g-wide--1 g-wide--last"></div></div>
+    <script type="text/javascript">
+      (function(document) {
+        var toggleDocumentationMenu = function() {
+          var navBtn = document.querySelector('.main-nav__btn');
+          var navList = document.querySelector('.main-nav__list');
+          var navIsOpenedClass = 'nav-is-opened';
+          var navListIsOpened = false;
+
+          navBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!navListIsOpened) {
+              addClass(navList, navIsOpenedClass);
+              navListIsOpened = true;
+            } else {
+              removeClass(navList, navIsOpenedClass);
+              navListIsOpened = false;
+            }
+          });
+        }
+
+        var toggleMainNav = function() {
+          var documentationItem =
+              document.querySelector('.main-nav__item--documentation');
+          var documentationLink =
+              document.querySelector('.main-nav__item--documentation > .main-nav__link');
+          var documentationIsOpenedClass = 'subnav-is-opened';
+          var documentationIsOpened = false;
+
+          documentationLink.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            if (!documentationIsOpened) {
+              documentationIsOpened = true;
+              addClass(documentationItem, documentationIsOpenedClass);
+            } else {
+              documentationIsOpened = false;
+              removeClass(documentationItem, documentationIsOpenedClass);
+            }
+
+          });
+        }
+
+        var isTouch = function() {
+          return ('ontouchstart' in window) ||
+            window.DocumentTouch && document instanceof DocumentTouch;
+        };
+
+        var addClass = function (element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(/\s+$/gi, '') + ' ' + className;
+        }
+
+        var removeClass = function(element, className) {
+          if (!element) { return; }
+          element.className = element.className.replace(className, '');
+        }
+
+        var html = document.querySelector('html');
+        removeClass(html, 'no-js');
+        addClass(html, 'js');
+
+        if (isTouch()) {
+          removeClass(html, 'no-touch');
+          addClass(html, 'is-touch');
+        }
+
+        toggleDocumentationMenu();
+        toggleMainNav();
+      })(document);
+    </script>
+    <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+    e.src='../../../../../../../www.google-analytics.com/analytics.js';
+    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-24532603-1');ga('send','pageview');
+    </script>
+  </body>
+
+<!-- Mirrored from developers.google.com/web/fundamentals/documentation/multi-device-layouts/navigation-patterns/appbar/index by HTTrack Website Copier/3.x [XR&CO'2013], Wed, 07 May 2014 09:56:18 GMT -->
+</html>
